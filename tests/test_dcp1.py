@@ -18,4 +18,4 @@ def exampleKValue():
     return 17  # this was also specified by the challanged
 
 def test_1_CheckValues(exampleListValues, exampleKValue):
-   assert dcp1.evaluate(exampleListValues) == exampleKValue
+    assert dcp1.evaluate(exampleListValues, exampleKValue) == True
