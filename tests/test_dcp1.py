@@ -12,7 +12,7 @@ from src import dcp1
 def exampleListGood():
     return [10, 15, 3, 7]  # these values were specified in the challenge
 
-
+@pytest.fixture
 def exampleListBad():
     return [5, 9, 7, 4]  # arbitrary values for completeness
 
