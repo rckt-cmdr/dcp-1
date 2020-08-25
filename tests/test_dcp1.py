@@ -9,13 +9,21 @@ import pytest
 from src import dcp1
 
 @pytest.fixture
-def exampleListValues():
+def exampleListGood():
     return [10, 15, 3, 7]  # these values were specified in the challenge
+
+
+def exampleListBad():
+    return [5, 9, 7, 4]  # arbitrary values for completeness
 
 
 @pytest.fixture
 def exampleKValue():
     return 17  # this was also specified by the challanged
 
-def test_1_CheckValues(exampleListValues, exampleKValue):
-    assert dcp1.evaluate(exampleListValues, exampleKValue) == True
+def test_1_ExpectedResultTrue(exampleListGood, exampleKValue):
+    assert dcp1.evaluate(exampleListGood, exampleKValue) == True
+
+
+def test_2_ExpectedResultFalse(exampleListBad, exampleKValue):
+    assert dcp1.evaluate(exampleListBad, exampleKValue) == False

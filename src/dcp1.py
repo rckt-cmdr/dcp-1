@@ -22,5 +22,9 @@ def evaluate(numbers:list, kValue:int):
 
     return result
 
+
+def evaluateSinglePass(numbers:list, kValue:int):
+    result
+
 if __name__ == "__main__":
     main()
