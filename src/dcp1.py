@@ -24,7 +24,14 @@ def evaluate(numbers:list, kValue:int):
 
 
 def evaluateSinglePass(numbers:list, kValue:int):
-    result
+    result = False  # assuming false until proven true
+    
+    numbers.sort()
+    for num in numbers:
+        if kValue - num in numbers:
+            result = True
+
+    return result
 
 if __name__ == "__main__":
     main()

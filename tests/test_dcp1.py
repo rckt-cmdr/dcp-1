@@ -25,5 +25,13 @@ def test_1_ExpectedResultTrue(exampleListGood, exampleKValue):
     assert dcp1.evaluate(exampleListGood, exampleKValue) == True
 
 
-def test_2_ExpectedResultFalse(exampleListBad, exampleKValue):
+def test_2_ExpectedResultTrue(exampleListGood, exampleKValue):
+    assert dcp1.evaluateSinglePass(exampleListGood, exampleKValue) == True
+
+
+def test_3_ExpectedResultFalse(exampleListBad, exampleKValue):
     assert dcp1.evaluate(exampleListBad, exampleKValue) == False
+
+
+def test_4_ExpectedResultFalse(exampleListBad, exampleKValue):
+    assert dcp1.evaluateSinglePass(exampleListBad, exampleKValue) == False
