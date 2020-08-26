@@ -10,11 +10,11 @@ import argparse
 
 def main():
 	parser = argparse.ArgumentParser(prog="dcp1", description="Daily Coding Challenge #1")
-	parser.add_argument("run", action="store_true")
+	parser.add_argument("run", default="run")
 	parser.add_argument("-o", "--optimized", action="store_true")
 	args = parser.parse_args()
 
-	if args.run:
+	if args.run == "run":
 		desc = ("=================================================\n"
 				"This program asks for a sequence of integers\n"
 				"and then for a single integer. It then evaluates\n"
@@ -45,7 +45,11 @@ def evaluate(numbers:list, kValue:int):
 		for num2 in numbers:
 			if num1 + num2 == kValue:
 				result = True
-				print(f"{num1} + {num2} = {kValue}")
+	
+	if result:
+		print(f"{num1} + {num2} = {kValue}")
+	else:
+		print(f"No combination of numbers add up to {kValue}")
 
 	return result
 
@@ -55,9 +59,11 @@ def evaluateSinglePass(numbers:list, kValue:int):
 	
 	numbers.sort()
 	for num in numbers:
-		if kValue - num in numbers:
+		if int(kValue) - int(num) in numbers:
 			result = True
 			print(f"{num} + {kValue - num} = {kValue}")
+		else:
+			print(f"No combination of numbers add up to {kValue}")
 
 	return result
 
