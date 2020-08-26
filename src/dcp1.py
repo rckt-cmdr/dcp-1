@@ -6,67 +6,62 @@
 
 
 import argparse
+import sys
 
 
-def main():
-	parser = argparse.ArgumentParser(prog="dcp1", description="Daily Coding Challenge #1")
-	parser.add_argument("run", default="run")
-	parser.add_argument("-o", "--optimized", action="store_true")
+def main():			
+	parser = argparse.ArgumentParser(prog="dcp1.py", description="Daily Coding Challenge #1")
+	parser.add_argument("-l", "--list", nargs="*", type=str, help="A sequence of at least 2 numbers, separated by <space character>", required=True)
+	parser.add_argument("-i", "--integer", nargs=1, type=int, help="A single integer for comparison", required=True)
+	parser.add_argument("-o", "--optimized", action="store_true", help="Evaluate the sequence with an optimized algorithm")
 	args = parser.parse_args()
 
-	if args.run == "run":
-		desc = ("=================================================\n"
-				"This program asks for a sequence of integers\n"
-				"and then for a single integer. It then evaluates\n"
-				"if any two values in the specified sequence add\n"
-				"up to the single integer.\n"
-				"=================================================\n\n")
-		print(desc)
-		print(askForInput(args.optimized))
-
-
-def askForInput(runOptimized=False):
-	result = None
-	# ToDo: need to split input on space delimiters
-	listInput = list(input("Please enter two or more numbers, each seperated by a space: "))
-	kInput = int(input("\n\nNow, please enter a single number: "))
-
-	if runOptimized:
-		result = evaluateSinglePass(listInput, kInput)
+	# converting list sequence to all ints
+	listInput = [int(i) for i in args.list]
+	kValueInput = args.integer[0]  # not sure why this is neccessary, but it is
+	
+	if len(listInput) < 2:
+		print("\n\nNot enough numbers in the sequence!\n")
+		sys.exit()
+	elif not args.integer:
+		print("\n\nYou must specify an integer!\n")
+		sys.exit()
+	elif args.optimized:
+		print("ln 39")
+		evaluateSinglePass(listInput, kValueInput)
 	else:
-		result = evaluate(listInput, kInput)
-
-	return result
+		print("ln 42")
+		evaluate(listInput, kValueInput)
 
 
 def evaluate(numbers:list, kValue:int):
-	result = False  # assuming false until proven true
+	numPairFound = False  # assuming false until proven true
 
 	for num1 in numbers:
 		for num2 in numbers:
 			if num1 + num2 == kValue:
-				result = True
-	
-	if result:
-		print(f"{num1} + {num2} = {kValue}")
-	else:
-		print(f"No combination of numbers add up to {kValue}")
+				numPairFound = True
+				print(f"\n>> Found one! [{num1} + {num2} = {kValue}]\n\n")
 
-	return result
+	if not numPairFound:
+		print(f"\n>> No combination of numbers add up to {kValue}\n\n")
+
+	return numPairFound
 
 
 def evaluateSinglePass(numbers:list, kValue:int):
-	result = False  # assuming false until proven true
+	numPairFound = False  # assuming false until proven true
 	
 	numbers.sort()
 	for num in numbers:
-		if int(kValue) - int(num) in numbers:
-			result = True
-			print(f"{num} + {kValue - num} = {kValue}")
-		else:
-			print(f"No combination of numbers add up to {kValue}")
+		if kValue - num in numbers:
+			numPairFound = True
+			print(f"\n>> Found one! [{num} + {kValue - num} = {kValue}]\n\n")
+	
+	if not numPairFound:
+		print(f"\n>> No combination of numbers add up to {kValue}\n\n")
 
-	return result
+	return numPairFound
 
 if __name__ == "__main__":
 	main()
