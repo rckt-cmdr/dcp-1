@@ -27,6 +27,7 @@ def main():
 
 def askForInput(runOptimized=False):
 	result = None
+	# ToDo: need to split input on space delimiters
 	listInput = list(input("Please enter two or more numbers, each seperated by a space: "))
 	kInput = int(input("\n\nNow, please enter a single number: "))
 
