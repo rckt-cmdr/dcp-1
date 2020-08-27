@@ -18,19 +18,16 @@ def main():
 
 	# converting list sequence to all ints
 	listInput = [int(i) for i in args.list]
-	kValueInput = args.integer[0]  # not sure why this is neccessary, but it is
-	
+	kValueInput = int(args.integer[0])  # not sure why, but can only get value this way
+
 	if len(listInput) < 2:
 		print("\n\nNot enough numbers in the sequence!\n")
 		sys.exit()
-	elif not args.integer:
-		print("\n\nYou must specify an integer!\n")
-		sys.exit()
 	elif args.optimized:
-		print("ln 39")
+		print("in optimized code branch")
 		evaluateSinglePass(listInput, kValueInput)
 	else:
-		print("ln 42")
+		print("in non-optimized code branch")
 		evaluate(listInput, kValueInput)
 
 
@@ -38,10 +35,14 @@ def evaluate(numbers:list, kValue:int):
 	numPairFound = False  # assuming false until proven true
 
 	for num1 in numbers:
-		for num2 in numbers:
-			if num1 + num2 == kValue:
-				numPairFound = True
-				print(f"\n>> Found one! [{num1} + {num2} = {kValue}]\n\n")
+		if not numPairFound:
+			for num2 in numbers:
+				if num1 + num2 == kValue:
+					numPairFound = True
+					print(f"\n>> Found one! [{num1} + {num2} = {kValue}]\n\n")
+					break
+		else:
+			break
 
 	if not numPairFound:
 		print(f"\n>> No combination of numbers add up to {kValue}\n\n")
@@ -57,6 +58,7 @@ def evaluateSinglePass(numbers:list, kValue:int):
 		if kValue - num in numbers:
 			numPairFound = True
 			print(f"\n>> Found one! [{num} + {kValue - num} = {kValue}]\n\n")
+			break
 	
 	if not numPairFound:
 		print(f"\n>> No combination of numbers add up to {kValue}\n\n")
